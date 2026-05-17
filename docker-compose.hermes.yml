@@ -1,0 +1,80 @@
+services:
+  hermes-demand:
+    image: nousresearch/hermes-agent:latest
+    container_name: worldcup-hermes-demand
+    restart: unless-stopped
+    command: gateway run
+    ports:
+      - "8642:8642"
+      - "9119:9119"
+    volumes:
+      - ./.hermes-data/demand:/opt/data
+    environment:
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY}
+      API_SERVER_CORS_ORIGINS: "*"
+      HERMES_DASHBOARD: "1"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      HERMES_MODEL: ${HERMES_MODEL:-gpt-5.4-mini-2026-03-17}
+      MESSAGING_CWD: /opt/data/workspace
+
+  hermes-pricing:
+    image: nousresearch/hermes-agent:latest
+    container_name: worldcup-hermes-pricing
+    restart: unless-stopped
+    command: gateway run
+    ports:
+      - "8643:8642"
+      - "9120:9119"
+    volumes:
+      - ./.hermes-data/pricing:/opt/data
+    environment:
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY}
+      API_SERVER_CORS_ORIGINS: "*"
+      HERMES_DASHBOARD: "1"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      HERMES_MODEL: ${HERMES_MODEL:-gpt-5.4-mini-2026-03-17}
+      MESSAGING_CWD: /opt/data/workspace
+
+  hermes-sales:
+    image: nousresearch/hermes-agent:latest
+    container_name: worldcup-hermes-sales
+    restart: unless-stopped
+    command: gateway run
+    ports:
+      - "8644:8642"
+      - "9121:9119"
+    volumes:
+      - ./.hermes-data/sales:/opt/data
+    environment:
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY}
+      API_SERVER_CORS_ORIGINS: "*"
+      HERMES_DASHBOARD: "1"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      HERMES_MODEL: ${HERMES_MODEL:-gpt-5.4-mini-2026-03-17}
+      MESSAGING_CWD: /opt/data/workspace
+
+  hermes-orchestrator:
+    image: nousresearch/hermes-agent:latest
+    container_name: worldcup-hermes-orchestrator
+    restart: unless-stopped
+    command: gateway run
+    ports:
+      - "8645:8642"
+      - "9122:9119"
+    volumes:
+      - ./.hermes-data/orchestrator:/opt/data
+    environment:
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY}
+      API_SERVER_CORS_ORIGINS: "*"
+      HERMES_DASHBOARD: "1"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      HERMES_MODEL: ${HERMES_MODEL:-gpt-5.4-mini-2026-03-17}
+      MESSAGING_CWD: /opt/data/workspace

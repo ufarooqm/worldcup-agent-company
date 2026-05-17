@@ -1,0 +1,55 @@
+{
+  "name": "worldcup-agent-company",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,green \"node server/index.js\" \"vite --host 0.0.0.0\"",
+    "dev:server": "node server/index.js",
+    "build": "tsc -b && vite build",
+    "build:railway-buyer": "VITE_PUBLIC_BUYER_ONLY=true tsc -b && VITE_PUBLIC_BUYER_ONLY=true vite build && node scripts/render-runtime-config.js",
+    "lint": "eslint .",
+    "preview": "node server/index.js",
+    "start:buyer": "node server/staticBuyer.js",
+    "relay:local": "node scripts/local-relay-client.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "demo:reset": "node scripts/reset-demo.js",
+    "hermes:configure": "node scripts/configure-hermes-profiles.js",
+    "hermes:up": "docker compose -f docker-compose.hermes.yml --env-file .env up -d && node scripts/configure-hermes-profiles.js && docker restart worldcup-hermes-demand worldcup-hermes-pricing worldcup-hermes-sales worldcup-hermes-orchestrator",
+    "hermes:hard-reset": "node scripts/hard-reset-hermes.js"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.10.2",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "framer-motion": "^12.38.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^1.16.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "ws": "^8.20.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.6"
+  }
+}
